@@ -1,7 +1,11 @@
+import Customlink from "@/components/Link";
+
 export default function Home() {
   return (
     <>
-      <h1>hello world!</h1>
+      <main className="flex items-center justify-center h-screen">
+        <Customlink href="/">Log in</Customlink>
+      </main>
     </>
   );
 }

@@ -17,10 +17,10 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
       <input
         type={type}
         name={name}
-        placeholder={placeholder}
+        placeholder={placeholder || "Input"}
         disabled={disabled}
         className={classNames(
-          "bg-[#222131] w-[300px] h-[53px] text-white rounded-[10px] placeholder-[#6E7191] px-[32px] py-[16px] border-4 outline-none shadow-sm transition-all duration-200 border-black focus:border-primary",
+          "bg-[#F1F4FA] w-[300px] h-[53px] text-black rounded-[10px] placeholder-[#6E7191] px-[32px] py-[16px] border-2 outline-none shadow-sm transition-all duration-200 border-[#F1F4FA] focus:border-primary",
           className,
         )}
         ref={ref}
