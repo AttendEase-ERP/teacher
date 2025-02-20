@@ -5,7 +5,7 @@ import * as React from "react";
 
 type LinkProps = React.ComponentProps<typeof Link>;
 
-const Customlink = forwardRef<HTMLAnchorElement, LinkProps>(
+const NextLink = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ children, className, href, ...restProps }, ref) => (
     <Link
       ref={ref}
@@ -21,6 +21,6 @@ const Customlink = forwardRef<HTMLAnchorElement, LinkProps>(
   ),
 );
 
-Customlink.displayName = "Link";
+NextLink.displayName = "Link";
 
-export default Customlink;
+export default NextLink;
