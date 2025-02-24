@@ -16,7 +16,7 @@ const SignUpForm: React.FC = () => {
             height={65}
             className="pb-4"
           />
-          <h1 className="font-medium text-[20px]">Sign Up</h1>
+          <h1 className="font-medium text-TitleLarge">Sign Up</h1>
         </div>
 
         <div className="relative text-center my-4 mb-6">
