@@ -12,8 +12,8 @@ const Button: React.FC<ButtonProps> = forwardRef<
     ref={ref}
     className={classNames(
       disabled
-        ? "bg-[#A09DFF] cursor-not-allowed text-white min-w-[138px] h-[59px] px-[40px] py-[18px] text-center rounded-[10px]"
-        : "cursor-pointer rounded-[10px] text-white bg-[#3A36DB] min-w-[138px] h-[59px] px-[40px] py-[18px] text-center",
+        ? "bg-[#A09DFF] cursor-not-allowed text-white min-w-[138px] h-[59px] px-[40px] py-[18px] text-center rounded-[10px] w-full"
+        : "cursor-pointer rounded-[10px] text-white bg-primary min-w-[138px] h-[59px] px-[40px] py-[18px] text-center w-full",
       className,
     )}
     disabled={disabled}
