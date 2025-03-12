@@ -11,7 +11,7 @@ const NextLink = forwardRef<HTMLAnchorElement, LinkProps>(
       ref={ref}
       href={href}
       className={classNames(
-        "inline-flex items-center justify-center cursor-pointer rounded-[10px] text-[#605CFF] font-bold",
+        "inline-flex items-center justify-center cursor-pointer rounded-[10px] text-primary font-bold",
         className,
       )}
       {...restProps}
