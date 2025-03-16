@@ -1,10 +1,13 @@
+import * as React from "react";
+
 import Button from "@/components/form/Button";
 import Input from "@/components/form/Input";
 import NextImage from "@/components/Image";
 import NextLink from "@/components/Link";
-import * as React from "react";
 
-const SignUpForm: React.FC = () => {
+import { signUp } from "@/lib/auth/auth";
+
+export default function SignUpForm() {
   return (
     <main className="bg-[#F1F4FA] flex flex-row h-screen w-screen">
       <div className="bg-white w-[448px] flex flex-col p-8 gap-6">
@@ -25,32 +28,42 @@ const SignUpForm: React.FC = () => {
           <div className="absolute top-1/2 w-[40%] border-b border-gray-300 ml-5"></div>
         </div>
 
-        <div className="">
-          <div className="mb-4">
-            <label className="block text-sm font-medium">Email</label>
-            <Input
-              type="email"
-              className="w-full border mt-[.75rem]"
-              placeholder="you@example.com"
-            />
+        <form action={signUp}>
+          <div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium" htmlFor="email">
+                Email
+              </label>
+              <Input
+                type="email"
+                name="email"
+                className="w-full border mt-[.75rem]"
+                placeholder="you@example.com"
+                id="email"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium" htmlFor="password">
+                Password
+              </label>
+              <Input
+                type="password"
+                name="password"
+                className="w-full border mt-[.75rem]"
+                placeholder="************"
+                id="password"
+                required
+              />
+            </div>
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium">Password</label>
-            <Input
-              type="password"
-              className="w-full border mt-[.75rem]"
-              placeholder="************"
-            />
-          </div>
-        </div>
 
-        <Button className="w-full">Create account</Button>
+          <Button type="submit">Create account</Button>
+        </form>
 
         <div className="mt-4 text-center text-sm flex justify-center gap-[.25rem]">
           <p className="text-[#788B9A]">Already have an account?</p>
-          <NextLink className="" href="">
-            Log in
-          </NextLink>
+          <NextLink href="/signin">Log in</NextLink>
         </div>
       </div>
 
@@ -64,6 +77,4 @@ const SignUpForm: React.FC = () => {
       </div>
     </main>
   );
-};
-
-export default SignUpForm;
+}
