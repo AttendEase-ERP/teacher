@@ -45,3 +45,16 @@ export async function signIn(formData: FormData) {
 
   redirect("/");
 }
+
+export async function signOut() {
+  const supabase = await createClient();
+
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    console.log("Error: ", error.message);
+    return;
+  }
+
+  redirect("/signin");
+}
