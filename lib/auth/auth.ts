@@ -24,3 +24,24 @@ export async function signUp(formData: FormData) {
 
   redirect("/signin");
 }
+
+export async function signIn(formData: FormData) {
+  const supabase = await createClient();
+
+  const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password,
+  });
+
+  if (error) {
+    console.log("Error: ", error.message);
+    return;
+  }
+
+  redirect("/");
+}
