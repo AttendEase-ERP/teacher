@@ -56,6 +56,16 @@ export default function SignUpForm() {
                 required
               />
             </div>
+
+            <div className="text-right mb-4">
+              <NextLink
+                href="/forgot-password"
+                className="text-sm text-primary hover:underline font-medium"
+                underline={true}
+              >
+                Forgot Password?
+              </NextLink>
+            </div>
           </div>
 
           <Button type="submit">Log in</Button>
@@ -63,7 +73,9 @@ export default function SignUpForm() {
 
         <div className="mt-4 text-center text-sm flex justify-center gap-[.25rem]">
           <p className="text-[#788B9A]">Don&apos;t have an account?</p>
-          <NextLink href="/signup">Sign up</NextLink>
+          <NextLink href="/signup" underline={true}>
+            Sign up
+          </NextLink>
         </div>
       </div>
 

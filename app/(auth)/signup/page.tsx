@@ -63,7 +63,9 @@ export default function SignUpForm() {
 
         <div className="mt-4 text-center text-sm flex justify-center gap-[.25rem]">
           <p className="text-[#788B9A]">Already have an account?</p>
-          <NextLink href="/signin">Log in</NextLink>
+          <NextLink href="/signin" underline={true}>
+            Log in
+          </NextLink>
         </div>
       </div>
 

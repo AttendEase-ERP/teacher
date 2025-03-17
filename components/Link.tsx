@@ -1,26 +1,32 @@
 import classNames from "classnames";
-import Link from "next/link";
-import { forwardRef } from "react";
+import Link, { LinkProps } from "next/link";
 import * as React from "react";
+interface ExtendedLinkProps extends LinkProps {
+  className?: string;
+  underline?: boolean;
+  children: React.ReactNode;
+}
 
-type LinkProps = React.ComponentProps<typeof Link>;
-
-const NextLink = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ children, className, href, ...restProps }, ref) => (
+const NextLink: React.FC<ExtendedLinkProps> = ({
+  children,
+  className,
+  href,
+  underline = false,
+  ...restProps
+}) => {
+  return (
     <Link
-      ref={ref}
       href={href}
       className={classNames(
         "inline-flex items-center justify-center cursor-pointer rounded-[10px] text-primary font-bold",
         className,
+        underline ? "hover:underline" : "",
       )}
       {...restProps}
     >
       {children}
     </Link>
-  ),
-);
-
-NextLink.displayName = "Link";
+  );
+};
 
 export default NextLink;
