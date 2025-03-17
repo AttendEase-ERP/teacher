@@ -69,10 +69,11 @@ export default function SignUpForm() {
 
       <div className="flex justify-center items-center h-screen w-[calc(100%-448px)]">
         <NextImage
-          src="/sign_in_img_light.svg"
+          src="/sign_up_img_light.svg"
           alt="Sign Up Illustration"
           width={500}
           height={500}
+          className="h-[auto] w-[auto]"
         />
       </div>
     </main>
