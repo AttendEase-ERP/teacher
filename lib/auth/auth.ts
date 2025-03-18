@@ -58,3 +58,12 @@ export async function signOut() {
 
   redirect("/signin");
 }
+
+// check if user is already signed in or not(using local session, on the client side/local storage)
+export async function retrieveUser() {
+  const supabase = await createClient();
+
+  const { data } = await supabase.auth.getSession();
+
+  return !!data.session;
+}
