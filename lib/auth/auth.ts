@@ -67,3 +67,17 @@ export async function retrieveUser() {
 
   return !!data.session;
 }
+
+// get email id of the teacher
+export async function getTeacherEmail() {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.auth.getSession();
+
+  if (error) {
+    console.log("Error: ", error.message);
+    return;
+  }
+
+  return data.session?.user.email;
+}
