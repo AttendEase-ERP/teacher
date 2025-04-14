@@ -1,22 +1,28 @@
-import { Tables } from "../database/database";
-
-/* 
-type teacherType =
-  | {
-      Teachers: { id: number; name: string; ... }; // Fields from Teachers table
-      Teacher_Section_Assignment: { teacher_id: number; section_id: number; ... }; // Fields from Teacher_Section_Assignment table
-      Subjects: { subject_id: number; subject_name: string; ... }; // Fields from Subjects table
-      Sections: { section_id: number; section_name: string; ... }; // Fields from Sections table
-      Courses: { course_id: number; course_name: string; ... }; // Fields from Courses table
-    }
-  | undefined; // If the context is not initialized yet
-*/
 export type teacherType =
-  | ({ Teachers: Tables<"Teachers"> } & {
-      Teacher_Section_Assignment: Tables<"Teacher_Section_Assignment">;
-    } & { Subjects: Tables<"Subjects"> } & {
-      Sections: Tables<"Sections">;
-    } & {
-      Courses: Tables<"Courses">;
-    })
+  | {
+      id: number;
+      name: string;
+      email: string;
+      Teacher_Section_Assignment: {
+        id: number;
+        section_id: number;
+        subject_id: number;
+        teacher_id: number;
+        Subjects: {
+          id: number;
+          subject_name: string;
+          semester: number;
+        };
+        Sections: {
+          id: number;
+          section_name: string;
+          course_id: number;
+          Courses: {
+            id: number;
+            course_name: string;
+            course_duration: number;
+          };
+        };
+      }[];
+    }
   | undefined;
