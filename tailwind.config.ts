@@ -16,6 +16,7 @@ export default {
         background: "#1A202C",
         grey: "#364153",
         border: "#2C3240",
+        backgroundLight: "#F1F4FA",
       },
 
       fontSize: {
