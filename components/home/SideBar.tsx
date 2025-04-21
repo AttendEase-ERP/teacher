@@ -10,7 +10,7 @@ import { signOut } from "@/lib/auth/auth";
 
 const SideBar = () => {
   return (
-    <div className="flex flex-col justify-between w-[25%] h-screen p-4 bg-neutral border-r">
+    <div className="flex flex-col justify-between w-[20%] h-screen p-4 bg-neutral border-r">
       <div>
         <div className="items-center justify-center w-full h-[10%] flex flex-col mt-6 text-primary font-bold text-[22px]">
           <NextImage
