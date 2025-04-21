@@ -37,7 +37,7 @@ const SideBar = () => {
 
       <Button
         onClick={signOut}
-        className="text-left mt-6 text-sm font-medium text-red-600 bg-red-100 rounded transition-colors duration-200"
+        className="text-left mt-6 text-sm font-medium bg-red-100 rounded text-red-600"
       >
         Sign out
       </Button>

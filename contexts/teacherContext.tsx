@@ -48,20 +48,14 @@ export const TeacherProvider = ({
           .single();
 
         if (error) {
-          console.log("error occurred while fetching teacher details: ", error);
+          console.error("error occurred while fetching teacher details: ", error);
 
           setTeacherDetails(undefined);
         } else {
-          console.log(
-            "teacher data: " +
-              data.Teacher_Section_Assignment?.[0].Sections.section_name,
-          );
-
           setTeacherDetails(data as teacherType);
-          console.log(teacherDetails);
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 
