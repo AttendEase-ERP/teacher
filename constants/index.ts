@@ -8,4 +8,12 @@ const SideBarLinks = {
   Settings: "/home/settings.svg",
 };
 
-export { SideBarLinks };
+const courseYears = {
+  1: "1st Year",
+  2: "2nd Year",
+  3: "3rd Year",
+  4: "4th Year",
+  5: "5th Year",
+};
+
+export { SideBarLinks, courseYears };
