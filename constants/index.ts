@@ -8,12 +8,17 @@ const SideBarLinks = {
   Settings: "/home/settings.svg",
 };
 
-const courseYears = {
-  1: "1st Year",
-  2: "2nd Year",
-  3: "3rd Year",
-  4: "4th Year",
-  5: "5th Year",
+const semesters: Record<number, string> = {
+  1: "1st Semester",
+  2: "2nd Semester",
+  3: "3rd Semester",
+  4: "4th Semester",
+  5: "5th Semester",
+  6: "6th Semester",
+  7: "7th Semester",
+  8: "8th Semester",
+  9: "9th Semester",
+  10: "10th Semester",
 };
 
-export { SideBarLinks, courseYears };
+export { SideBarLinks, semesters };
