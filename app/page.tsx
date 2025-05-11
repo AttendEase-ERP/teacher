@@ -22,7 +22,6 @@ export default function Home() {
       }[]
     | null
   >(null);
-  console.log(selectedClassDetails);
 
   const teacherSubjects =
     teacherDetails?.Teacher_Section_Assignment.map(
