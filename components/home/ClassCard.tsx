@@ -15,6 +15,7 @@ interface ClassCardProps {
 
 interface ClassCardListProps {
   classes: { semester: number; section: string }[] | null;
+  onClick?: () => void;
 }
 
 function ClassCard({ title, description, onClick, className }: ClassCardProps) {

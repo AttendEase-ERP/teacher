@@ -7,6 +7,7 @@ import SideBar from "@/components/home/SideBar";
 import ClassCardList from "@/components/home/ClassCard";
 
 import { useTeacherContext } from "@/contexts/teacherContext";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   const teacherDetails = useTeacherContext();
@@ -21,6 +22,7 @@ export default function Home() {
       }[]
     | null
   >(null);
+  console.log(selectedClassDetails);
 
   const teacherSubjects =
     teacherDetails?.Teacher_Section_Assignment.map(
@@ -54,7 +56,14 @@ export default function Home() {
 
         <Dropdown subjects={teacherSubjects} onSelect={handleSubjectSelect} />
 
-        <ClassCardList classes={selectedClassDetails} />
+        <ClassCardList
+          classes={selectedClassDetails}
+          onClick={() =>
+            redirect(
+              `/class/${selectedClassDetails![0].semester}/${selectedClassDetails![0].section.toLowerCase()}`,
+            )
+          }
+        />
       </div>
     </main>
   );
