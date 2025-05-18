@@ -1,28 +1,28 @@
 export type teacherType =
   | {
       id: number;
-      name: string;
-      email: string;
-      Teacher_Section_Assignment: {
+      section_id: number;
+      subject_id: number;
+      teacher_id: number;
+      Teachers: {
+        email: string;
         id: number;
-        section_id: number;
-        subject_id: number;
-        teacher_id: number;
-        Subjects: {
+        name: string;
+      };
+      Sections: {
+        course_id: number;
+        id: number;
+        section_name: string;
+        Courses: {
+          course_duration: number;
+          course_name: string;
           id: number;
-          subject_name: string;
-          semester: number;
         };
-        Sections: {
-          id: number;
-          section_name: string;
-          course_id: number;
-          Courses: {
-            id: number;
-            course_name: string;
-            course_duration: number;
-          };
-        };
-      }[];
-    }
+      };
+      Subjects: {
+        id: number;
+        semester: number;
+        subject_name: string;
+      };
+    }[]
   | undefined;
