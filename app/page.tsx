@@ -49,91 +49,13 @@ export default function Home() {
           return { data, error };
         };
 
-        supabase
+        const channel = supabase
           .channel("teacher_data")
           .on(
             "postgres_changes",
             {
               event: "*",
               schema: "public",
-              table: "Teachers",
-              filter: `email=eq.${teacherEmail}`,
-            },
-            async (payload) => {
-              console.log(payload);
-              const { data, error } = await fetchTeacherDataFromDB();
-              if (!error) {
-                const newFormattedTeacherData: Teachers[] = formatTeacherData(
-                  data!,
-                );
-                console.log(newFormattedTeacherData);
-              }
-            },
-          )
-          .on(
-            "postgres_changes",
-            {
-              event: "*",
-              schema: "public",
-              table: "Teacher_Section_Assignment",
-              filter: `Teachers.email=eq.${teacherEmail}`,
-            },
-            async (payload) => {
-              console.log(payload);
-              const { data, error } = await fetchTeacherDataFromDB();
-              if (!error) {
-                const newFormattedTeacherData: Teachers[] = formatTeacherData(
-                  data!,
-                );
-                console.log(newFormattedTeacherData);
-              }
-            },
-          )
-          .on(
-            "postgres_changes",
-            {
-              event: "*",
-              schema: "public",
-              table: "Subjects",
-              filter: `Teachers.email=eq.${teacherEmail}`,
-            },
-            async (payload) => {
-              console.log(payload);
-              const { data, error } = await fetchTeacherDataFromDB();
-              if (!error) {
-                const newFormattedTeacherData: Teachers[] = formatTeacherData(
-                  data!,
-                );
-                console.log(newFormattedTeacherData);
-              }
-            },
-          )
-          .on(
-            "postgres_changes",
-            {
-              event: "*",
-              schema: "public",
-              table: "Sections",
-              filter: `Teachers.email=eq.${teacherEmail}`,
-            },
-            async (payload) => {
-              console.log(payload);
-              const { data, error } = await fetchTeacherDataFromDB();
-              if (!error) {
-                const newFormattedTeacherData: Teachers[] = formatTeacherData(
-                  data!,
-                );
-                console.log(newFormattedTeacherData);
-              }
-            },
-          )
-          .on(
-            "postgres_changes",
-            {
-              event: "*",
-              schema: "public",
-              table: "Courses",
-              filter: `Teachers.email=eq.${teacherEmail}`,
             },
             async (payload) => {
               console.log(payload);
@@ -174,6 +96,9 @@ export default function Home() {
             console.error(error);
           }
         }
+        return () => {
+          supabase.removeChannel(channel);
+        };
       } catch (error) {
         console.error(error);
       }
