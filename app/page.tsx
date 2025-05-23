@@ -52,10 +52,10 @@ export default function Home() {
 
     const uniqueSemesterAndSection = Array.from(
       new Set(
-        semesterAndSection.map((item) => `${item.semester}-${item.section}`),
+        semesterAndSection.map((item) => `${item.semester}/${item.section}`),
       ),
     ).map((item) => {
-      const [semester, section] = item.split("-");
+      const [semester, section] = item.split("/");
       return { semester: Number(semester), section };
     });
 
@@ -88,7 +88,6 @@ export default function Home() {
         const teacherDataFromIDB = await idb.Teachers.where("email")
           .equals(teacherEmail!)
           .toArray();
-        console.log("teacher data from IDB");
 
         const fetchTeacherDataFromDB = async () => {
           const { data, error } = await supabase
@@ -116,11 +115,8 @@ export default function Home() {
               event: "*",
               schema: "public",
             },
-            async (payload) => {
-              console.log(payload);
-
+            async () => {
               const { data, error } = await fetchTeacherDataFromDB();
-              console.log("teacher data from DB");
               if (!error) {
                 const newFormattedTeacherData: Teachers[] = formatTeacherData(
                   data!,
