@@ -15,7 +15,7 @@ interface ClassCardProps {
 
 interface ClassCardListProps {
   classes: { semester: number; section: string }[] | null;
-  onClick?: () => void;
+  onClick?: (cls: { semester: number; section: string }) => void;
 }
 
 function ClassCard({ title, description, onClick, className }: ClassCardProps) {
@@ -42,35 +42,28 @@ function ClassCard({ title, description, onClick, className }: ClassCardProps) {
 
 export default function ClassCardList({
   classes,
-  ...restProps
+  onClick,
 }: ClassCardListProps) {
-  if (classes == null) {
+  if (classes == null || classes.length === 0) {
     return (
       <div className="text-center text-gray-500 text-sm mt-4">
         No classes found.
       </div>
     );
   }
-  if (classes.length > 0) {
-    return (
-      <div className="flex flex-wrap gap-4">
-        {classes.map((classItem, index) => (
-          <ClassCard
-            key={index}
-            title={
-              semesters[classItem.semester] ?? `Semester ${classItem.semester}`
-            }
-            description={classItem.section}
-            {...restProps}
-          />
-        ))}
-      </div>
-    );
-  } else {
-    return (
-      <div className="text-center text-gray-500 text-sm mt-4">
-        No classes found.
-      </div>
-    );
-  }
+
+  return (
+    <div className="flex flex-wrap gap-4">
+      {classes.map((classItem, index) => (
+        <ClassCard
+          key={`${classItem.semester}-${classItem.section}-${index}`}
+          title={
+            semesters[classItem.semester] ?? `Semester ${classItem.semester}`
+          }
+          description={classItem.section}
+          onClick={() => onClick?.(classItem)}
+        />
+      ))}
+    </div>
+  );
 }
