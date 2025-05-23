@@ -17,10 +17,67 @@ import { formatTeacherData } from "@/utils/utils";
 import { redirect } from "next/navigation";
 
 export default function Home() {
+  const [selectedSubject, setSelectedSubject] = React.useState<string | null>();
   const [subjectsList, setSubjectsList] = React.useState<string[]>([]);
+  const [formattedTeacherData, setFormattedTeacherData] = React.useState<
+    Teachers[]
+  >([]);
+  const [selectedClasses, setSelectedClasses] = React.useState<
+    { semester: number; section: string }[] | null
+  >(null);
+
+  const syncToIDB = async (newData: Teachers[]) => {
+    const currentData = await idb.Teachers.toArray();
+
+    const newIDs = new Set(newData.map((item) => item.id));
+
+    const deletedIDs = currentData
+      .filter((item) => !newIDs.has(item.id))
+      .map((item) => item.id);
+
+    if (deletedIDs.length > 0) {
+      await idb.Teachers.bulkDelete(deletedIDs);
+    }
+
+    await idb.Teachers.bulkPut(newData);
+  };
+
+  const getSemesterAndSection = (
+    teacherDataFromIDB: Teachers[],
+  ): { semester: number; section: string }[] | null => {
+    const semesterAndSection = teacherDataFromIDB.map((item) => ({
+      semester: item.semester,
+      section: item.section_name,
+    }));
+
+    const uniqueSemesterAndSection = Array.from(
+      new Set(
+        semesterAndSection.map((item) => `${item.semester}-${item.section}`),
+      ),
+    ).map((item) => {
+      const [semester, section] = item.split("-");
+      return { semester: Number(semester), section };
+    });
+
+    return uniqueSemesterAndSection;
+  };
+
+  const getSelectedClassDetails = async (subject: string) => {
+    const teacherEmail = await getTeacherEmail();
+    const teacherDataFromIDB = await idb.Teachers.where("email")
+      .equals(teacherEmail!)
+      .toArray();
+
+    const selectedClassDetails = teacherDataFromIDB.filter(
+      (item) => item.subject_name === subject,
+    );
+
+    setSelectedClasses(getSemesterAndSection(selectedClassDetails));
+  };
 
   const handleSubjectSelect = (selectedSubject: string) => {
-    console.log(selectedSubject);
+    setSelectedSubject(selectedSubject);
+    getSelectedClassDetails(selectedSubject);
   };
 
   React.useEffect(() => {
@@ -31,6 +88,8 @@ export default function Home() {
         const teacherDataFromIDB = await idb.Teachers.where("email")
           .equals(teacherEmail!)
           .toArray();
+        console.log("teacher data from IDB");
+
         const fetchTeacherDataFromDB = async () => {
           const { data, error } = await supabase
             .from("Teacher_Section_Assignment")
@@ -59,19 +118,22 @@ export default function Home() {
             },
             async (payload) => {
               console.log(payload);
+
               const { data, error } = await fetchTeacherDataFromDB();
+              console.log("teacher data from DB");
               if (!error) {
                 const newFormattedTeacherData: Teachers[] = formatTeacherData(
                   data!,
                 );
-                console.log(newFormattedTeacherData);
+                setFormattedTeacherData(newFormattedTeacherData);
               }
             },
           )
           .subscribe();
 
         if (teacherDataFromIDB.length > 0) {
-          // now add realtime here, if any result changes, then it'll be automatically updated in IDB.
+          await syncToIDB(formattedTeacherData);
+
           const uniqueSubjects = Array.from(
             new Set(teacherDataFromIDB.map((item) => item.subject_name)),
           );
@@ -105,7 +167,7 @@ export default function Home() {
     };
 
     fetchTeacherDetails();
-  }, []);
+  }, [formattedTeacherData]);
   return (
     <main className="h-screen bg-backgroundLight flex flex-row gap-10">
       <SideBar />
@@ -114,14 +176,22 @@ export default function Home() {
         <h1 className="font-bold text-[25px] mt-4">Dashboard</h1>
         <Dropdown subjects={subjectsList} onSelect={handleSubjectSelect} />
 
-        {/* <ClassCardList
-          classes={selectedClassDetails}
-          onClick={() =>
-            redirect(
-              `/class/${selectedClassDetails![0].semester}/${selectedClassDetails![0].section.toLowerCase()}`,
-            )
-          }
-        /> */}
+        {selectedSubject && selectedClasses && selectedClasses.length > 0 ? (
+          <ClassCardList
+            classes={selectedClasses}
+            onClick={(cls) => {
+              redirect(`/class/${cls.semester}/${cls.section.toLowerCase()}`);
+            }}
+          />
+        ) : selectedSubject ? (
+          <div className="text-center text-gray-500 text-sm mt-4">
+            No classes assigned for this subject.
+          </div>
+        ) : (
+          <div className="text-center text-gray-500 text-sm mt-4">
+            Please select a subject to view assigned classes.
+          </div>
+        )}
       </div>
     </main>
   );
