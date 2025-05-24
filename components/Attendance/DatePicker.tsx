@@ -52,14 +52,14 @@ export default function Calendar() {
     <div className="relative inline-block">
       <Button
         onClick={toggleCalendar}
-        className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition"
+        className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition cursor-pointer outline-0"
         overrideStyles={true}
       >
         {selectedDate ? selectedDate.toLocaleDateString() : "Pick a date"}
       </Button>
 
       {open && (
-        <div className="absolute z-10 mt-2 bg-white p-2 rounded shadow-lg border w-fit">
+        <div className="absolute z-10 mt-2 bg-white p-2 rounded-lg shadow-xl border w-fit">
           <DayPicker
             mode="single"
             selected={selectedDate}
@@ -67,7 +67,7 @@ export default function Calendar() {
               setSelectedDate(date);
               setOpen(false);
             }}
-            className="!w-[100%] text-sm"
+            className="w-full! text-sm"
             styles={{
               caption: { fontSize: "0.9rem" },
               head_cell: { padding: "0.25rem" },

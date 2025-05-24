@@ -165,10 +165,10 @@ export default function Home() {
     fetchTeacherDetails();
   }, [formattedTeacherData]);
   return (
-    <main className="h-screen bg-backgroundLight flex flex-row gap-10">
+    <main className="h-screen bg-background-light flex flex-row gap-10">
       <SideBar />
 
-      <div className="flex flex-col w-full h-screen bg-backgroundLight gap-10">
+      <div className="flex flex-col w-full h-screen bg-background-light gap-10">
         <h1 className="font-bold text-[25px] mt-4">Dashboard</h1>
         <Dropdown subjects={subjectsList} onSelect={handleSubjectSelect} />
 

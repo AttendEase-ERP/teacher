@@ -30,7 +30,7 @@ const TeacherSubjectDropdown = ({
   return (
     <div className="relative inline-block text-left w-[120px]">
       <Button
-        className="flex items-center justify-between bg-primary px-4 hover:bg-[#5b52e0] w-[120%] h-10 text-sm rounded-[10px] duration-200 text-white text-center"
+        className="flex items-center justify-between bg-primary px-4 hover:bg-[#5b52e0] w-[120%] h-10 text-sm rounded-[10px] duration-200 text-white text-center cursor-pointer"
         overrideStyles={true}
         onClick={toggleDropdown}
       >

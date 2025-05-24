@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
   const computedClassName = overrideStyles
     ? classNames(className)
     : classNames(
-        "rounded-[10px] text-white min-w-[138px] h-[59px] px-[40px] py-[18px] text-center w-full",
+        "rounded-[10px] text-white min-w-[138px] h-[59px] px-[40px] py-[18px] text-center w-full cursor-pointer",
         disabled
           ? "bg-[#A09DFF] cursor-not-allowed"
           : "cursor-pointer bg-primary",
