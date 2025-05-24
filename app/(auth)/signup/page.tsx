@@ -75,7 +75,7 @@ export default function SignUpForm() {
           alt="Sign Up Illustration"
           width={500}
           height={500}
-          className="h-[auto] w-[auto]"
+          className="h-auto w-auto"
         />
       </div>
     </main>

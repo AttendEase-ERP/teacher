@@ -12,10 +12,10 @@ export default function StudentsList() {
   const semester_section = params.semester_section as string;
 
   return (
-    <main className="h-screen bg-backgroundLight flex flex-row gap-10">
+    <main className="h-screen bg-background-light flex flex-row gap-10">
       <SideBar />
 
-      <div className="flex flex-col w-full h-screen bg-backgroundLight gap-10">
+      <div className="flex flex-col w-full h-screen bg-background-light gap-10">
         <div className="flex flex-row gap-3">
           <ArrowLeft
             className="mt-6 cursor-pointer hover:text-primary duration-200"

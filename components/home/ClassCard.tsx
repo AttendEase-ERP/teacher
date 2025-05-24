@@ -23,7 +23,7 @@ function ClassCard({ title, description, onClick, className }: ClassCardProps) {
     <Button
       onClick={onClick}
       className={classNames(
-        "flex items-center justify-start w-[18%] h-[15%] gap-8 pt-8 pr-8 pb-8 pl-3 text-left rounded-md border-muted bg-white",
+        "flex items-center justify-start w-[18%] h-[15%] gap-8 pt-8 pr-8 pb-8 pl-3 text-left rounded-md border-muted bg-white cursor-pointer",
         className,
       )}
       overrideStyles={true}
