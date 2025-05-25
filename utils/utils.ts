@@ -1,4 +1,4 @@
-import { Teachers } from "@/lib/indexedDB/idb";
+import { idb, Teachers } from "@/lib/indexedDB/idb";
 
 import { teacherType } from "@/types/teacher/teacher";
 
@@ -21,4 +21,12 @@ const formatTeacherData = (teacherData: teacherType): Teachers[] => {
   }));
 };
 
-export { formatTeacherData };
+const fetchDateFromIDB = async (): Promise<Date | undefined> => {
+  const existing = await idb.SelectedDateForAttendance.get(1);
+  if (existing?.date) {
+    return new Date(existing.date);
+  }
+  return undefined;
+};
+
+export { formatTeacherData, fetchDateFromIDB };

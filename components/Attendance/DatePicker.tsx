@@ -8,6 +8,7 @@ import "react-day-picker/style.css";
 import Button from "@/components/form/Button";
 
 import { idb } from "@/lib/indexedDB/idb";
+import { fetchDateFromIDB } from "@/utils/utils";
 
 export default function Calendar() {
   const [selectedDate, setSelectedDate] = React.useState<Date | undefined>();
@@ -17,13 +18,14 @@ export default function Calendar() {
 
   // Fetch selected date from IDB on mount
   React.useEffect(() => {
-    const fetchDateFromIDB = async () => {
-      const existing = await idb.SelectedDateForAttendance.get(1);
-      if (existing?.date) {
-        const parsed = new Date(existing.date);
-        setSelectedDate(parsed);
-      }
-    };
+    if (fetchDateFromIDB != undefined) {
+      fetchDateFromIDB().then((date) => {
+        if (date) {
+          setSelectedDate(date);
+          console.log("Fetched date from IDB:", date.toDateString());
+        }
+      });
+    }
 
     fetchDateFromIDB();
   }, []);
