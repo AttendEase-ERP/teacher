@@ -22,7 +22,6 @@ export default function Calendar() {
       fetchDateFromIDB().then((date) => {
         if (date) {
           setSelectedDate(date);
-          console.log("Fetched date from IDB:", date.toDateString());
         }
       });
     }
@@ -40,7 +39,6 @@ export default function Calendar() {
 
     setSelectedDate(date);
     setOpen(false);
-    console.log("Date updated in IDB:", date.toDateString());
   };
 
   return (
@@ -50,7 +48,7 @@ export default function Calendar() {
         className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition cursor-pointer outline-0"
         overrideStyles={true}
       >
-        {selectedDate ? selectedDate.toLocaleDateString() : "Pick a date"}
+        {selectedDate ? selectedDate.toLocaleDateString() : "Date"}
       </Button>
 
       {open && (

@@ -2,12 +2,10 @@
 
 import React from "react";
 
-import Calendar from "./DatePicker";
-
-export default function DisplayStudentsListInRealtime() {
+export default function DisplayStudentsList() {
   return (
-    <h1>
-      <Calendar />
-    </h1>
+    <div>
+      <p>Students list</p>
+    </div>
   );
 }

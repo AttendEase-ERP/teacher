@@ -1,16 +1,14 @@
 "use client";
 
-import { redirect, useParams } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import SideBar from "@/components/home/SideBar";
-import DisplayStudentsListInRealtime from "@/components/Attendance/StudentsList";
+import Calendar from "@/components/Attendance/DatePicker";
+import DisplayStudentsList from "@/components/Attendance/StudentsList";
 
 import { ArrowLeft } from "lucide-react";
 
 export default function StudentsList() {
-  const params = useParams();
-  const semester_section = params.semester_section as string;
-
   return (
     <main className="h-screen bg-background-light flex flex-row gap-10">
       <SideBar />
@@ -24,8 +22,9 @@ export default function StudentsList() {
           <h1 className="font-bold text-[25px] mt-4">Students List</h1>
         </div>
 
-        <DisplayStudentsListInRealtime />
-        <p>Param: {semester_section}</p>
+        <Calendar />
+
+        <DisplayStudentsList />
       </div>
     </main>
   );
