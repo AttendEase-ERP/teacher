@@ -20,7 +20,7 @@ export interface SelectedDateForAttendance {
   date: string;
 }
 
-interface StudentDetails {
+export interface StudentDetails {
   id: number;
   enrollment_number: number;
   name: string;
