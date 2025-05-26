@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import SideBar from "@/components/home/SideBar";
 import Calendar from "@/components/Attendance/DatePicker";
-import DisplayStudentsList from "@/components/Attendance/StudentsList";
+import DisplayStudentsList from "@/components/Attendance/DisplayStudentsList";
 
 import { ArrowLeft } from "lucide-react";
 
