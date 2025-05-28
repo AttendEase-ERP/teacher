@@ -20,8 +20,8 @@ export default function Home() {
   const [selectedSubject, setSelectedSubject] = React.useState<string | null>();
   const [subjectsList, setSubjectsList] = React.useState<string[]>([]);
   const [formattedTeacherData, setFormattedTeacherData] = React.useState<
-    Teachers[]
-  >([]);
+    Teachers[] | undefined
+  >(undefined);
   const [selectedClasses, setSelectedClasses] = React.useState<
     { semester: number; section: string }[] | null
   >(null);
@@ -121,14 +121,17 @@ export default function Home() {
                 const newFormattedTeacherData: Teachers[] = formatTeacherData(
                   data!,
                 );
-                setFormattedTeacherData(newFormattedTeacherData);
+                setFormattedTeacherData(newFormattedTeacherData as Teachers[]);
               }
             },
           )
           .subscribe();
 
-        if (teacherDataFromIDB.length > 0) {
-          await syncToIDB(formattedTeacherData);
+        if (
+          teacherDataFromIDB.length > 0 &&
+          formattedTeacherData != undefined
+        ) {
+          await syncToIDB(formattedTeacherData!);
 
           const uniqueSubjects = Array.from(
             new Set(teacherDataFromIDB.map((item) => item.subject_name)),
