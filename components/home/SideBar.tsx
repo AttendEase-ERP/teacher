@@ -2,6 +2,8 @@
 
 import { SideBarLinks } from "@/constants";
 
+import { LogOut } from "lucide-react";
+
 import SideBarLink from "./SideBarLink";
 import NextImage from "../Image";
 import Button from "../form/Button";
@@ -37,8 +39,9 @@ const SideBar = () => {
 
       <Button
         onClick={signOut}
-        className="text-left mt-6 text-sm font-medium bg-primary text-white"
+        className="text-left mt-6 text-sm font-medium bg-primary text-white flex gap-3"
       >
+        <LogOut />
         Sign out
       </Button>
     </div>

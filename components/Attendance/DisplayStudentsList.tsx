@@ -8,6 +8,11 @@ import { fetchAllStudentsFromIDB, formatStudentData } from "@/utils/utils";
 
 import { idb, StudentDetails } from "@/lib/indexedDB/idb";
 
+import { useLiveQuery } from "dexie-react-hooks";
+
+import StudentListHeader from "./StudentsListHeader";
+import StudentRow from "./StudentRow";
+
 interface DisplayStudentsListProps {
   semester: number;
   section: string;
@@ -20,6 +25,11 @@ export default function DisplayStudentsList({
   const [studentsDataFromDB, setStudentsDataFromDB] = React.useState<
     StudentDetails[] | undefined
   >(undefined);
+  const [studentsDataFromIDB, setStudentsDataFromIDB] = React.useState<
+    StudentDetails[] | undefined
+  >(undefined);
+
+  const date = useLiveQuery(() => idb.SelectedDateForAttendance.get(1));
 
   const syncToIDB = async (newData: StudentDetails[]) => {
     const currentData = await idb.StudentDetails.toArray();
@@ -35,6 +45,8 @@ export default function DisplayStudentsList({
     }
 
     await idb.StudentDetails.bulkPut(newData);
+
+    setStudentsDataFromIDB(newData);
   };
 
   React.useEffect(() => {
@@ -101,6 +113,8 @@ export default function DisplayStudentsList({
               data!,
             );
             await idb.StudentDetails.bulkPut(formattedStudentsData);
+
+            setStudentsDataFromIDB(formattedStudentsData);
           } else {
             console.error(error);
           }
@@ -116,11 +130,30 @@ export default function DisplayStudentsList({
     fetchStudentDetails();
   }, [section, semester, studentsDataFromDB]);
 
+  const students = studentsDataFromIDB
+    ? studentsDataFromIDB.map((student) => ({
+        enrollment: student.enrollment_number,
+        name: student.name,
+        email: student.email,
+        date: date ? new Date(date.date) : new Date(),
+        status: "Absent" as "Present" | "Absent",
+      }))
+    : [];
+
   return (
-    <div>
-      <p>Students list</p>
-      <p>semester: {semester}</p>
-      <p>section: {section}</p>
+    <div className="w-[98%]">
+      <div>
+        {" "}
+        {/* Titles */}
+        <StudentListHeader />
+      </div>
+
+      <div className="flex flex-col gap-4">
+        {/* Multiple divs for all students */}
+        {students.map((student) => (
+          <StudentRow key={student.enrollment} {...student} />
+        ))}
+      </div>
     </div>
   );
 }

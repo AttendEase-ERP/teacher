@@ -167,6 +167,7 @@ export default function Home() {
 
     fetchTeacherDetails();
   }, [formattedTeacherData]);
+
   return (
     <main className="h-screen bg-background-light flex flex-row gap-10">
       <SideBar />
